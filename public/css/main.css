@@ -31175,6 +31175,10 @@ video {
           animation: bounce 1s infinite;
 }
 
+.l-40-percent {
+  left: 40%;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;
