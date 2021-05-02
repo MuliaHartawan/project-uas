@@ -7,6 +7,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 @import url('https://fonts.googleapis.com/css2?family=Salsa&display=swap');
 
+:root {
+    --primary-button: #60A5FA;
+    --hover-button: #2563EB;
+}
+
 html,
 body {
     font-size: 100%;
@@ -530,7 +535,7 @@ ul.multi-column-dropdown h6 {
 .snipcart-details input.button {
     font-size: 14px;
     color: #fff;
-    background: #3399cc;
+    background: var(--primary-button);
     text-decoration: none;
     position: relative;
     border: none;
@@ -539,11 +544,12 @@ ul.multi-column-dropdown h6 {
     text-transform: uppercase;
     padding: .5em 0;
     outline: none;
+    transition: 0.5s;
 }
 
 .agile_top_brand_left_grid:hover .snipcart-details input.button,
 .snipcart-details input.button:hover {
-    background: #60A5FA;
+    background: var(--hover-button);
 }
 
 .product_list_header input.button {
@@ -1167,12 +1173,13 @@ a.w3_agile_vimeo:hover {
     color: #fff;
     display: block;
     width: 100%;
-    background: #3399cc;
+    background: var(--primary-button);
     margin: 1.5em 0 0;
+    transition: 0.5s;
 }
 
 .login-form-grids input[type="submit"]:hover {
-    background: #fe9126;
+    background: var(--hover-button);
 }
 
 .login-form-grids ::-webkit-input-placeholder {

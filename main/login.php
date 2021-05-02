@@ -184,7 +184,7 @@ $timenow = date("j-F-Y-h:i:s A");
 				<form method="post">
 					<input type="text" name="email" placeholder="Email" required>
 					<input type="password" name="pass" placeholder="Password" required>
-					<input type="submit" name="login" value="Masuk">
+					<input type="submit" name="login" value="Masuk" class="bg-blue-400 hover:bg-blue-500 transform">
 				</form>
 			</div>
 			<h4>Belum terdaftar?</h4>
