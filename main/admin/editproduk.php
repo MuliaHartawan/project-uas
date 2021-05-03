@@ -54,7 +54,23 @@
 		}
 	
 	};
-	?>
+
+    $id = $_GET['id']; 
+    $query_edit = mysqli_query($conn, "SELECT * FROM produk WHERE idproduk=$id");
+    $query_kategori = mysqli_query($conn, "SELECT produk.idproduk, kategori.namakategori
+    FROM kategori INNER JOIN produk ON kategori.idkategori = produk.idkategori");
+    $kategori = mysqli_fetch_array($query_kategori);
+    while ($row = mysqli_fetch_array($query_edit)) {  
+        $nama = $row['namaproduk'];
+        $deskripsi = $row['deskripsi'];
+        $rating = $row['rate'];
+        $hargasebelum = $row['hargabefore'];
+        $hargasetelah = $row['hargaafter'];
+
+    }
+
+?>
+    
 
 <!doctype html>
 <html class="no-js" lang="en">
@@ -65,7 +81,7 @@
       type="image/png" 
       href="../favicon.png">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Kelola Produk - Selikur Thirft</title>
+    <title>Edit Produk - Selikur Thirft</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -99,9 +115,9 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
     <!-- preloader area start -->
-    <div id="preloader">
+    <!-- <div id="preloader">
         <div class="loader"></div>
-    </div>
+    </div> -->
     <!-- preloader area end -->
     <!-- page container area start -->
     <div class="page-container">
@@ -186,54 +202,55 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-sm-flex justify-content-between align-items-center">
-									<h2>Daftar Produk</h2>
-									<button style="margin-bottom:20px" data-toggle="modal" data-target="#insrtModal" class="btn btn-info col-md-2">Tambah Produk</button>
+									<h2>Edit Produk</h2>
                                 </div>
-                                    <div class="data-tables datatable-dark">
-										 <table id="dataTable3" class="display" style="width:100%"><thead class="thead-dark">
-											<tr>
-												<th>No.</th>
-												<th>Gambar</th>
-												<th>Nama Produk</th>
-												<th>Kategori</th>
-												<th>Harga Diskon</th>
-												<th>Deskripsi</th>
-												<th>Rate</th>
-												<th>Harga Awal</th>
-												<th>Tanggal</th>
-												<th>Action</th>
-											</tr></thead><tbody>
-											<?php 
-											$brgs=mysqli_query($conn,"SELECT * from kategori k, produk p where k.idkategori=p.idkategori order by idproduk ASC");
-											$no=1;
-											while($p=mysqli_fetch_array($brgs)){
-												
-												?>
-												
-												<tr>
-													<td><?php echo $no++ ?></td>
-													<td><img src="../<?php echo $p['gambar'] ?>" width="50%"\></td>
-													<td><?php echo $p['namaproduk'] ?></td>
-													<td><?php echo $p['namakategori'] ?></td>
-													<td><?php echo $p['hargaafter'] ?></td>
-													<td><?php echo $p['deskripsi'] ?></td>
-													<td><?php echo $p['rate'] ?></td>
-													<td><?php echo $p['hargabefore'] ?></td>
-													<td><?php echo $p['tgldibuat'] ?></td>
-													<td><a  href="editproduk.php?id= <?= $p['idproduk'] ?>" class="btn btn-warning my-2 mx-1">Edit</a>  <a href="hapusproduk.php?id=<?= $p['idproduk'] ?> " class="btn btn-danger mx-1 my-2">Hapus</a><td>
-													
-												</tr>		
-												
-												<?php 
-											}
-											
-												
-											
-		
-											?>
-										</tbody>
-										</table>
-                                    </div>
+                                    <form action="produk.php" method="post" enctype="multipart/form-data" >
+                                            <div class="form-group">
+                                                <label>Nama Produk</label>
+                                                <input name="namaproduk" type="text" class="form-control" value="<?= $nama ?>" autofocus required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Nama Kategori</label>
+                                                <select name="idkategori" class="form-control">
+                                                <option selected><?php $kategori ?></option>
+                                                <?php
+                                                $det=mysqli_query($conn,"select * from kategori order by namakategori ASC")or die(mysqli_error());
+                                                while($d=mysqli_fetch_array($det)){
+                                                ?>
+                                                    <option value="<?php echo $d['idkategori'] ?>"><?php echo $d['namakategori'] ?></option>
+                                                    <?php
+                                            }
+                                            ?>		
+                                                </select>
+                                                
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Deskripsi</label>
+                                                <input name="deskripsi" type="text" class="form-control" value="<?= $deskripsi ?>" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Rating (1-5)</label>
+                                                <input name="rate" type="number" class="form-control"  min="1" max="5" <?= $rating ?> required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Harga Sebelum Diskon</label>
+                                                <input name="hargabefore" type="number" class="form-control" <?= $hargasebelum ?>>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Harga Setelah Diskon</label>
+                                                <input name="hargaafter" type="number" class="form-control" <?= $hargasetelah ?>>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Gambar</label>
+                                                <input name="uploadgambar" type="file" class="form-control">
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="produk.php" class="btn btn-default btn-outline-dark" data-dismiss="modal">Batal</a>
+                                            <input name="addproduct" type="submit" class="btn btn-warning" value="Edit">
+                                        </div>
+                                    </form>
 								 </div>
                             </div>
                         </div>
@@ -254,66 +271,6 @@
         <!-- footer area end-->
     </div>
     <!-- page container area end -->
-	
-	<!-- modal tambah -->
-			<div id="insertModal" class="modal fade">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title">Tambah Produk</h4>
-						</div>
-						<div class="modal-body">
-						<form action="produk.php" method="post" enctype="multipart/form-data" >
-								<div class="form-group">
-									<label>Nama Produk</label>
-									<input name="namaproduk" type="text" class="form-control required autofocus>
-								</div>
-								<div class="form-group">
-									<label>Nama Kategori</label>
-									<select name="idkategori" class="form-control">
-									<option selected>Pilih Kategori</option>
-									<?php
-									$det=mysqli_query($conn,"select * from kategori order by namakategori ASC")or die(mysqli_error());
-									while($d=mysqli_fetch_array($det)){
-									?>
-										<option value="<?php echo $d['idkategori'] ?>"><?php echo $d['namakategori'] ?></option>
-										<?php
-								}
-								?>		
-									</select>
-									
-								</div>
-								<div class="form-group">
-									<label>Deskripsi</label>
-									<input name="deskripsi" type="text" class="form-control" required>
-								</div>
-								<div class="form-group">
-									<label>Rating (1-5)</label>
-									<input name="rate" type="number" class="form-control"  min="1" max="5" required>
-								</div>
-								<div class="form-group">
-									<label>Harga Sebelum Diskon</label>
-									<input name="hargabefore" type="number" class="form-control">
-								</div>
-								<div class="form-group">
-									<label>Harga Setelah Diskon</label>
-									<input name="hargaafter" type="number" class="form-control">
-								</div>
-								<div class="form-group">
-									<label>Gambar</label>
-									<input name="uploadgambar" type="file" class="form-control">
-								</div>
-
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-								<input name="addproduct" type="submit" class="btn btn-primary" value="Tambah">
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-			</div>
 	
 	<script>
 	$(document).ready(function() {
