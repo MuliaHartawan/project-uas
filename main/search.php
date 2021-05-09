@@ -2,6 +2,7 @@
 session_start();
 include 'dbconnect.php';
 
+$s = $_POST['Search'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -92,7 +93,13 @@ include 'dbconnect.php';
 				<h1><a href="index.php">Selikur Thrift</a></h1>
 			</div>
 		<div class="w3l_search">
-			
+			<form action="search.php" method="post">
+				<input type="search" name="Search" placeholder="Cari produk...">
+				<button type="submit" class="btn btn-default search" aria-label="Left Align">
+					<i class="fa fa-search" aria-hidden="true"> </i>
+				</button>
+				<div class="clearfix"></div>
+			</form>
 		</div>
 			
 			<div class="clearfix"> </div>
@@ -186,7 +193,47 @@ include 'dbconnect.php';
 				<div class="agile_top_brands_grids">
 				
 				
-				
+				<?php 
+					$brgs=mysqli_query($conn,"SELECT * from produk where namaproduk like '%$s%' or deskripsi like '%$s%' order by idproduk ASC");
+					$x = mysqli_num_rows($brgs);
+					
+					if($x>0){
+					while($p=mysqli_fetch_array($brgs)){
+					?>
+						
+						<div class="col-md-4 top_brand_left">
+						<div class="hover14 column">
+							<div class="agile_top_brand_left_grid">
+								<div class="agile_top_brand_left_grid_pos">
+									<img src="images/offer.png" alt=" " class="img-responsive" />
+								</div>
+								<div class="agile_top_brand_left_grid1">
+									<figure>
+										<div class="snipcart-item block">
+											<div class="snipcart-thumb">
+												<a href="product.php?idproduk=<?php echo $p['idproduk'] ?>"><img src="<?php echo $p['gambar']?>" width="200px" height="200px"></a>		
+												<p><?php echo $p['namaproduk'] ?></p>
+												<h4>Rp<?php echo number_format($p['hargaafter']) ?> <span>Rp<?php echo number_format($p['hargabefore']) ?></span></h4>
+											</div>
+											<div class="snipcart-details top_brand_home_details">
+												<fieldset>
+													<a href="product.php?idproduk=<?php echo $p['idproduk'] ?>"><input type="submit" class="button" value="Lihat Produk" /></a>
+												</fieldset>
+											</div>
+										</div>
+									</figure>
+								</div>
+							</div>
+						</div>
+					</div>
+						<?php
+							}
+					} else {
+						echo "Data tidak ditemukan, coba kata kunci lainnya";
+					}
+						?>
+					
+						<div class="clearfix"> </div>
 				</div>
 			</div>
 			<div class="clearfix"> </div>
