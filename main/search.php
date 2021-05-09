@@ -47,7 +47,29 @@ include 'dbconnect.php';
 			</div>
 			<div class="agile-login">
 				<ul>
-				
+				<?php
+				if(!isset($_SESSION['log'])){
+					echo '
+					<li><a href="registered.php"> Daftar</a></li>
+					<li><a href="login.php">Masuk</a></li>
+					';
+				} else {
+					
+					if($_SESSION['role']=='Member'){
+					echo '
+					<li style="color:white">Halo, '.$_SESSION["name"].'
+					<li><a href="logout.php">Keluar?</a></li>
+					';
+					} else {
+					echo '
+					<li style="color:white">Halo, '.$_SESSION["name"].'
+					<li><a href="admin">Admin Panel</a></li>
+					<li><a href="logout.php">Keluar?</a></li>
+					';
+					};
+					
+				}
+				?>
 					
 				</ul>
 			</div>
