@@ -26,6 +26,15 @@ if(!isset($_SESSION['log'])){
 			echo "Gagal update cart
 			<meta http-equiv='refresh' content='1; url= cart.php'/>";
 		}
+	} else if(isset($_POST["hapus"])){
+		$kode = $_POST['idproduknya'];
+		$q2 = mysqli_query($conn, "delete from detailorder where idproduk='$kode' and orderid='$orderidd'");
+		if($q2){
+			echo "Berhasil Hapus";
+		} else {
+			echo "Gagal Hapus";
+		}
+	}
 ?>
 <!DOCTYPE html>
 <html>
