@@ -188,7 +188,58 @@ $idorder = $_GET['id'];
 		<div class="container">
 			<h2>Dalam keranjangmu ada : <span><?php echo $itungtrans3 ?> barang</span></h2>
 			<div class="checkout-right">
+				<table class="timetable_sub">
+					<thead>
+						<tr>
+							<th>No.</th>	
+							<th>Produk</th>
+							<th>Nama Produk</th>
+							<th>Jumlah</th>
+							
+						
+							<th>Harga Satuan</th>
+						</tr>
+					</thead>
+					
+					<?php 
+						$brg=mysqli_query($conn,"SELECT * from detailorder d, produk p where orderid='$idorder' and d.idproduk=p.idproduk order by d.idproduk ASC");
+						$no=1;
+						while($b=mysqli_fetch_array($brg)){
+
+					?>
+					<tr class="rem1"><form method="post">
+						<td class="invert"><?php echo $no++ ?></td>
+						<td class="invert"><a href="product.php?idproduk=<?php echo $b['idproduk'] ?>"><img src="<?php echo $b['gambar'] ?>" width="100px" height="100px" /></a></td>
+						<td class="invert"><?php echo $b['namaproduk'] ?></td>
+						<td class="invert">
+							 <div class="quantity"> 
+								<div class="quantity-select">                     
+									<input type="number" name="jumlah" class="form-control" height="100px" value="<?php echo $b['qty'] ?>" \>
+								</div>
+							</div>
+						</td>
 				
+						<td class="invert">Rp<?php echo number_format($b['hargaafter']) ?></td>
+						
+					</tr>
+					<?php
+						}
+					?>
+					
+								<!--quantity-->
+									<script>
+									$('.value-plus').on('click', function(){
+										var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)+1;
+										divUpd.text(newVal);
+									});
+
+									$('.value-minus').on('click', function(){
+										var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)-1;
+										if(newVal>=1) divUpd.text(newVal);
+									});
+									</script>
+								<!--quantity-->
+				</table>
 			</div>
 			<div class="checkout-left">	
 				<div class="checkout-left-basket">
