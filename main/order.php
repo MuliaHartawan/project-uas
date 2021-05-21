@@ -18,17 +18,35 @@ $idorder = $_GET['id'];
 	$itungtrans2 = mysqli_fetch_assoc($itungtrans);
 	$itungtrans3 = $itungtrans2['jumlahtrans'];
 	
-
-
+if(isset($_POST["update"])){
+	$kode = $_POST['idproduknya'];
+	$jumlah = $_POST['jumlah'];
+	$q1 = mysqli_query($conn, "update detailorder set qty='$jumlah' where idproduk='$kode' and orderid='$orderidd'");
+	if($q1){
+		echo "Berhasil Update Cart
+		<meta http-equiv='refresh' content='1; url= cart.php'/>";
+	} else {
+		echo "Gagal update cart
+		<meta http-equiv='refresh' content='1; url= cart.php'/>";
+	}
+} else if(isset($_POST["hapus"])){
+	$kode = $_POST['idproduknya'];
+	$q2 = mysqli_query($conn, "delete from detailorder where idproduk='$kode' and orderid='$orderidd'");
+	if($q2){
+		echo "Berhasil Hapus";
+	} else {
+		echo "Gagal Hapus";
+	}
+}
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Tokopekita - Keranjang Saya</title>
+<title>Selikur Thrift - Keranjang Saya</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Tokopekita, Richard's Lab" />
+<meta name="keywords" content="Selikur Thrift, Richard's Lab" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //for-mobile-apps -->
@@ -107,7 +125,7 @@ $idorder = $_GET['id'];
 				</ul>
 			</div>
 			<div class="w3ls_logo_products_left">
-				<h1><a href="index.php">Tokopekita</a></h1>
+				<h1><a href="index.php">Selikur Thrift</a></h1>
 			</div>
 		<div class="w3l_search">
 			<form action="search.php" method="post">
