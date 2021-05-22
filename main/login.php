@@ -36,11 +36,11 @@ $timenow = date("j-F-Y-h:i:s A");
 <!DOCTYPE html>
 <html>
 <head>
-<title>Thrift Selikur - Masuk</title>
+<title>Selikur Thrift - Masuk</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Tokopekita, Richard's Lab" />
+<meta name="keywords" content="Selikur Thrift, Richard's Lab" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //for-mobile-apps -->
