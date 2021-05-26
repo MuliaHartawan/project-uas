@@ -26,6 +26,14 @@ if (isset($_POST["update"])) {
         echo "Gagal update cart
 		<meta http-equiv='refresh' content='1; url= cart.php'/>";
     }
+} else if (isset($_POST["hapus"])) {
+    $kode = $_POST['idproduknya'];
+    $q2 = mysqli_query($conn, "delete from detailorder where idproduk='$kode' and orderid='$orderidd'");
+    if ($q2) {
+        echo "Berhasil Hapus";
+    } else {
+        echo "Gagal Hapus";
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -243,7 +251,7 @@ if (isset($_POST["update"])) {
 
                                         <input type="submit" name="update" class="form-control" value="Update" \>
                                         <input type="hidden" name="idproduknya" value="<?php echo $b['idproduk'] ?>" \>
-
+                                        <input type="submit" name="hapus" class="form-control" value="Hapus" \>
                             </form>
             </div>
             <script>
