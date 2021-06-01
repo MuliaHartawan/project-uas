@@ -14,7 +14,18 @@ $itungtrans = mysqli_query($conn, "select count(detailid) as jumlahtrans from de
 $itungtrans2 = mysqli_fetch_assoc($itungtrans);
 $itungtrans3 = $itungtrans2['jumlahtrans'];
 
+if (isset($_POST["checkout"])) {
 
+    $q3 = mysqli_query($conn, "update cart set status='Payment' where orderid='$orderidd'");
+    if ($q3) {
+        echo "Berhasil Check Out
+		<meta http-equiv='refresh' content='1; url= index.php'/>";
+    } else {
+        echo "Gagal Check Out
+		<meta http-equiv='refresh' content='1; url= index.php'/>";
+    }
+} else {
+}
 ?>
 <!DOCTYPE html>
 <html>
