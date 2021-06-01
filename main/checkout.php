@@ -217,7 +217,33 @@ if (isset($_POST["checkout"])) {
                         </tr>
                     </thead>
 
-                    
+                    <?php
+                    $brg = mysqli_query($conn, "SELECT * from detailorder d, produk p where orderid='$orderidd' and d.idproduk=p.idproduk order by d.idproduk ASC");
+                    $no = 1;
+                    while ($b = mysqli_fetch_array($brg)) {
+
+                    ?>
+                        <tr class="rem1">
+                            <form method="post">
+                                <td class="invert"><?php echo $no++ ?></td>
+                                <td class="invert"><a href="product.php?idproduk=<?php echo $b['idproduk'] ?>"><img src="<?php echo $b['gambar'] ?>" width="100px" height="100px" /></a></td>
+                                <td class="invert"><?php echo $b['namaproduk'] ?></td>
+                                <td class="invert">
+                                    <div class="quantity">
+                                        <div class="quantity-select">
+                                            <h4><?php echo $b['qty'] ?></h4>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td class="invert">Rp<?php echo number_format($b['hargaafter'] * $b['qty']) ?></td>
+                                <td class="invert">
+                                    <div class="rem">
+
+                                        <input type="submit" name="update" class="form-control" value="Update" \>
+                                        <input type="hidden" name="idproduknya" value="<?php echo $b['idproduk'] ?>" \>
+                                        <input type="submit" name="hapus" class="form-control" value="Hapus" \>
+                            </form>
             </div>
             <script>
                 $(document).ready(function(c) {
@@ -254,7 +280,7 @@ if (isset($_POST["checkout"])) {
         <div class="checkout-left">
             <div class="checkout-left-basket">
                 <h4>Total Harga yang harus dibayar saat ini</h4>
-               
+
             </div>
             <br>
             <div class="checkout-left-basket" style="width:80%;margin-top:60px;">
@@ -277,7 +303,7 @@ if (isset($_POST["checkout"])) {
             <br>
 
 
-           
+
             <br>
             <br>
             <p>Orderan anda Akan Segera kami proses 1x24 Jam Setelah Anda Melakukan Pembayaran ke ATM kami dan menyertakan informasi pribadi yang melakukan pembayaran seperti Nama Pemilik Rekening / Sumber Dana, Tanggal Pembayaran, Metode Pembayaran dan Jumlah Bayar.</p>
