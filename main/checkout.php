@@ -272,7 +272,9 @@ $itungtrans3 = $itungtrans2['jumlahtrans'];
             <p>Orderan anda Akan Segera kami proses 1x24 Jam Setelah Anda Melakukan Pembayaran ke ATM kami dan menyertakan informasi pribadi yang melakukan pembayaran seperti Nama Pemilik Rekening / Sumber Dana, Tanggal Pembayaran, Metode Pembayaran dan Jumlah Bayar.</p>
 
             <br>
-            
+            <form method="post">
+                <input type="submit" class="form-control btn btn-success" name="checkout" value="I Agree and Check Out" \>
+            </form>
 
         </center>
     </div>
