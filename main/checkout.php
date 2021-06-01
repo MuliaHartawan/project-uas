@@ -6,6 +6,13 @@ if (!isset($_SESSION['log'])) {
     header('location:login.php');
 } else {
 };
+$uid = $_SESSION['id'];
+$caricart = mysqli_query($conn, "select * from cart where userid='$uid' and status='Cart'");
+$fetc = mysqli_fetch_array($caricart);
+$orderidd = $fetc['orderid'];
+$itungtrans = mysqli_query($conn, "select count(detailid) as jumlahtrans from detailorder where orderid='$orderidd'");
+$itungtrans2 = mysqli_fetch_assoc($itungtrans);
+$itungtrans3 = $itungtrans2['jumlahtrans'];
 
 
 ?>
