@@ -280,7 +280,21 @@ if (isset($_POST["checkout"])) {
         <div class="checkout-left">
             <div class="checkout-left-basket">
                 <h4>Total Harga yang harus dibayar saat ini</h4>
+                <ul>
+                    <?php
+                    $brg = mysqli_query($conn, "SELECT * from detailorder d, produk p where orderid='$orderidd' and d.idproduk=p.idproduk order by d.idproduk ASC");
+                    $no = 1;
+                    $subtotal = 0;
+                    while ($b = mysqli_fetch_array($brg)) {
+                        $hrg = $b['hargaafter'];
+                        $qtyy = $b['qty'];
+                        $totalharga = $hrg * $qtyy;
+                        $subtotal += $totalharga;
+                    }
+                    ?>
 
+                    <h1><input type="text" value="Rp<?php echo number_format($subtotal) ?>" disabled \></h1>
+                </ul>
             </div>
             <br>
             <div class="checkout-left-basket" style="width:80%;margin-top:60px;">
@@ -303,6 +317,22 @@ if (isset($_POST["checkout"])) {
             <br>
 
 
+            <?php
+            $metode = mysqli_query($conn, "select * from pembayaran");
+
+            while ($p = mysqli_fetch_array($metode)) {
+
+            ?>
+
+                <img src="<?php echo $p['logo'] ?>" width="300px" height="200px"><br>
+                <h4><?php echo $p['metode'] ?> - <?php echo $p['norek'] ?><br>
+                    a/n. <?php echo $p['an'] ?></h4><br>
+                <br>
+                <hr>
+
+            <?php
+            }
+            ?>
 
             <br>
             <br>
