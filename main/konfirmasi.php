@@ -186,7 +186,42 @@ include 'dbconnect.php';
     <!-- //breadcrumbs -->
     <!-- register -->
     <div class="register">
+        <div class="container">
+            <h2>Konfirmasi</h2>
+            <div class="login-form-grids">
+                <h3>Kode Order</h3>
+                <form method="post">
+                    <strong>
+                        <input type="text" name="orderid" value="<?php echo $idorder ?>" disabled>
+                    </strong>
+                    <h6>Informasi Pembayaran</h6>
 
+                    <input type="text" name="nama" placeholder="Nama Pemilik Rekening / Sumber Dana" required>
+                    <br>
+                    <h6>Rekening Tujuan</h6>
+                    <select name="metode" class="form-control">
+
+                        <?php
+                        $metode = mysqli_query($conn, "select * from pembayaran");
+
+                        while ($a = mysqli_fetch_array($metode)) {
+                        ?>
+                            <option value="<?php echo $a['metode'] ?>"><?php echo $a['metode'] ?> | <?php echo $a['norek'] ?></option>
+                        <?php
+                        };
+                        ?>
+
+                    </select>
+                    <br>
+                    <h6>Tanggal Bayar</h6>
+                    <input type="date" class="form-control" name="tanggal">
+                    <input type="submit" name="confirm" value="Kirim">
+                </form>
+            </div>
+            <div class="register-home">
+                <a href="index.php">Batal</a>
+            </div>
+        </div>
     </div>
     <!-- //register -->
     <!-- //footer -->
