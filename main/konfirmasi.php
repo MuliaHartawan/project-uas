@@ -5,11 +5,46 @@ if (!isset($_SESSION['log'])) {
 } else {
 };
 
-
+$idorder = $_GET['id'];
 
 include 'dbconnect.php';
 
+if (isset($_POST['confirm'])) {
 
+    $userid = $_SESSION['id'];
+    $veriforderid = mysqli_query($conn, "select * from cart where orderid='$idorder'");
+    $fetch = mysqli_fetch_array($veriforderid);
+    $liat = mysqli_num_rows($veriforderid);
+
+    if ($fetch > 0) {
+        $nama = $_POST['nama'];
+        $metode = $_POST['metode'];
+        $tanggal = $_POST['tanggal'];
+
+        $kon = mysqli_query($conn, "insert into konfirmasi (orderid, userid, payment, namarekening, tglbayar) 
+		values('$idorder','$userid','$metode','$nama','$tanggal')");
+        if ($kon) {
+
+            $up = mysqli_query($conn, "update cart set status='Confirmed' where orderid='$idorder'");
+
+            echo " <div class='alert alert-success'>
+			Terima kasih telah melakukan konfirmasi, team kami akan melakukan verifikasi.
+			Informasi selanjutnya akan dikirim via Email
+		  </div>
+		<meta http-equiv='refresh' content='7; url= index.php'/>  ";
+        } else {
+            echo "<div class='alert alert-warning'>
+			Gagal Submit, silakan ulangi lagi.
+		  </div>
+		 <meta http-equiv='refresh' content='3; url= konfirmasi.php'/> ";
+        }
+    } else {
+        echo "<div class='alert alert-danger'>
+			Kode Order tidak ditemukan, harap masukkan kembali dengan benar
+		  </div>
+		 <meta http-equiv='refresh' content='4; url= konfirmasi.php'/> ";
+    }
+};
 
 ?>
 
