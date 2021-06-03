@@ -161,7 +161,40 @@ date_default_timezone_set("Asia/Bangkok");
     <!-- page container area end -->
 
     <!-- modal input -->
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Masukkan stok manual</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="tmb_brg_act.php" method="post">
+                        <div class="form-group">
+                            <label>Nama</label>
+                            <input name="nama" type="text" class="form-control" placeholder="Nama Barang" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Jenis</label>
+                            <input name="jenis" type="text" class="form-control" placeholder="Jenis / Kategori Barang">
+                        </div>
+                        <div class="form-group">
+                            <label>Stock</label>
+                            <input name="stock" type="number" min="0" class="form-control" placeholder="Qty">
+                        </div>
+                        <div class="form-group">
+                            <label>Harga</label>
+                            <input name="harga" type="number" min="0" class="form-control" placeholder="Harga">
+                        </div>
 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                    <input type="submit" class="btn btn-primary" value="Simpan">
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <script>
         $(document).ready(function() {
