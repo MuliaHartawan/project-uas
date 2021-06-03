@@ -9,7 +9,7 @@ if (!isset($_SESSION['log'])) {
 $uid = $_SESSION['id'];
 $caricart = mysqli_query($conn, "select * from cart where userid='$uid' and status='Cart'");
 $fetc = mysqli_fetch_array($caricart);
-$orderidd = $fetc['orderid'];
+$orderidd = isset($fetc['orderid']);
 $itungtrans = mysqli_query($conn, "select count(orderid) as jumlahtrans from cart where userid='$uid' and status!='Cart'");
 $itungtrans2 = mysqli_fetch_assoc($itungtrans);
 $itungtrans3 = $itungtrans2['jumlahtrans'];
