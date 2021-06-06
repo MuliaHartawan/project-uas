@@ -18,7 +18,8 @@ $itungtrans3 = $itungtrans2['jumlahtrans'];
 if (isset($_POST["update"])) {
     $kode = $_POST['idproduknya'];
     $jumlah = $_POST['jumlah'];
-    $q1 = mysqli_query($conn, "update detailorder set qty='$jumlah' where idproduk='$kode' and orderid='$orderidd'");
+    $ekspedisi = $_POST['ekspedisi'];
+    $q1 = mysqli_query($conn, "update detailorder set qty='$jumlah', ekspedisi='$ekspedisi' where idproduk='$kode' and orderid='$orderidd'");
     if ($q1) {
         echo "Berhasil Update Cart
 		<meta http-equiv='refresh' content='1; url= cart.php'/>";
@@ -219,9 +220,8 @@ if (isset($_POST["update"])) {
                             <th>Produk</th>
                             <th>Nama Produk</th>
                             <th>Jumlah</th>
-
-
                             <th>Harga Satuan</th>
+                            <th>Ekspedisi</th>
                             <th>Hapus</th>
                         </tr>
                     </thead>
@@ -244,8 +244,15 @@ if (isset($_POST["update"])) {
                                         </div>
                                     </div>
                                 </td>
-
                                 <td class="invert">Rp<?php echo number_format($b['hargaafter']) ?></td>
+                                <td class="invert">
+                                    <select name="ekspedisi" class="form-select mx-2" aria-label="Default select example">
+                                        <?php $eks = mysqli_query($conn, "SELECT ekspedisi FROM detailorder where orderid = '$orderidd' "); ?>
+                                        <option value="JNE Express" <?php if ($eks === 'jne') echo "selected"; ?>>JNE Express</option>
+                                        <option value="J&T Express" <?php if ($eks === 'jnt') echo "selected"; ?>>J&T Express</option>
+                                        <option value="SiCepat Express" <?php if ($eks === 'sicepat')  echo "selected"; ?>>SiCepat Express</option>
+                                    </select>
+                                </td>
                                 <td class="invert">
                                     <div class="rem">
 

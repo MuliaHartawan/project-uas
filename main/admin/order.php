@@ -192,6 +192,7 @@ if (isset($_POST['selesai'])) {
 												<th>Produk</th>
 												<th>Jumlah</th>
 												<th>Harga</th>
+												<th>Ekspedisi</th>
 												<th>Total</th>
 
 											</tr>
@@ -215,6 +216,7 @@ if (isset($_POST['selesai'])) {
 													<td><?php echo $p['namaproduk'] ?></td>
 													<td><?php echo $p['qty'] ?></td>
 													<td>Rp<?php echo number_format($p['hargaafter']) ?></td>
+													<td><?php echo $p['ekspedisi'] ?></td>
 													<td>Rp<?php echo number_format($total) ?></td>
 
 												</tr>

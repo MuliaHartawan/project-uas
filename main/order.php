@@ -12,7 +12,7 @@ $idorder = $_GET['id'];
 $uid = $_SESSION['id'];
 $caricart = mysqli_query($conn, "select * from cart where userid='$uid' and status='Cart'");
 $fetc = mysqli_fetch_array($caricart);
-$orderidd = $fetc['orderid'];
+$orderidd = isset($fetc['orderid']);
 $itungtrans = mysqli_query($conn, "select count(detailid) as jumlahtrans from detailorder where orderid='$orderidd'");
 $itungtrans2 = mysqli_fetch_assoc($itungtrans);
 $itungtrans3 = $itungtrans2['jumlahtrans'];
@@ -57,13 +57,13 @@ if (isset($_POST["update"])) {
 		}
 	</script>
 	<!-- //for-mobile-apps -->
-	<link href="=../public/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="=../public/css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="../public/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="../public/css/style.css" rel="stylesheet" type="text/css" media="all" />
 	<!-- font-awesome icons -->
-	<link href="=../public/css/font-awesome.css" rel="stylesheet">
+	<link href="../public/css/font-awesome.css" rel="stylesheet">
 	<!-- //font-awesome icons -->
 	<!-- js -->
-	<script src="=../public/js/jquery-1.11.1.min.js"></script>
+	<script src="../public/js/jquery-1.11.1.min.js"></script>
 	<!-- //js -->
 	<link href='//fonts.googleapis.com/css?family=Raleway:400,100,100italic,200,200italic,300,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic' rel='stylesheet' type='text/css'>
 	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
@@ -221,14 +221,14 @@ if (isset($_POST["update"])) {
 							<th>Produk</th>
 							<th>Nama Produk</th>
 							<th>Jumlah</th>
-
-
+							<th>Ekspedisi</th>
 							<th>Harga Satuan</th>
 						</tr>
 					</thead>
 
 					<?php
 					$brg = mysqli_query($conn, "SELECT * from detailorder d, produk p where orderid='$idorder' and d.idproduk=p.idproduk order by d.idproduk ASC");
+
 					$no = 1;
 					while ($b = mysqli_fetch_array($brg)) {
 
@@ -241,11 +241,11 @@ if (isset($_POST["update"])) {
 								<td class="invert">
 									<div class="quantity">
 										<div class="quantity-select">
-											<input type="number" name="jumlah" class="form-control" height="100px" value="<?php echo $b['qty'] ?>" \>
+											<input readonly type="number" name="jumlah" class="form-control" height="100px" value="<?php echo $b['qty'] ?>" \>
 										</div>
 									</div>
 								</td>
-
+								<td class="invert"><?php echo ($b['ekspedisi']) ?></td>
 								<td class="invert">Rp<?php echo number_format($b['hargaafter']) ?></td>
 
 						</tr>
