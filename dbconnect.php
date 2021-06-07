@@ -1,14 +1,21 @@
-<?php 
+<?php
 
-// be2988b2ff3efc
-// a702473e
-// us-cdbr-east-04.cleardb.com
-// mysql://:@/heroku_de8fe86cdf97e2b?reconnect=true
+//Get Heroku ClearDB connection information
+
+$cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+$cleardb_server = $cleardb_url["host1"];
+$cleardb_username = $cleardb_url["user1"];
+$cleardb_password = $cleardb_url["pass1"];
+$cleardb_db = substr($cleardb_url["path"], 1);
+$active_group = 'default';
+$query_builder = TRUE;
+// Connect to DB
+$conn = mysqli_connect($cleardb_server, $cleardb_username, $cleardb_password, $cleardb_db);
+
 // isi nama host, username mysql, dan password mysql anda
-$conn = mysqli_connect("localhost","root","","thrift");
+// $conn = mysqli_connect("localhost", "root", "", "thrift");
 
-if(!$conn){
-	echo "gagal konek database mann";
-} else {
-	
-};
+// if (!$conn) {
+// 	echo "gagal konek database mann";
+// } else {
+// };
